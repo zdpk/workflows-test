@@ -6,4 +6,4 @@ on:
 
 jobs:
   kt-test:
-    uses: zdpk/workflows/.github/workflows/kotlin-ci.yml@main
+    uses: zdpk/workflows/.github/workflows/kotlin-ci.yml
