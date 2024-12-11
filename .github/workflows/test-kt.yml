@@ -1,0 +1,9 @@
+name: Test kt ci
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  kt-test:
+    uses: zdpk/workflows/.github/workflows/reusable-workflow.yml@main
