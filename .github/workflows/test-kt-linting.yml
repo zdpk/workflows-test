@@ -7,5 +7,10 @@ on:
 
 jobs:
   kt-test:
-    # uses: zdpk/workflows/.github/workflows/kotlin-ci.yml@main
-    uses: zdpk/workflows/actions/fmlint-kt@main
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Run tests
+        uses: zdpk/workflows/actions/fmlint-kt@main
