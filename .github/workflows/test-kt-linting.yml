@@ -1,0 +1,11 @@
+name: Test kt ci
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+
+jobs:
+  kt-test:
+    # uses: zdpk/workflows/.github/workflows/kotlin-ci.yml@main
+    uses: zdpk/workflows/actions/fmlint-kt@main
