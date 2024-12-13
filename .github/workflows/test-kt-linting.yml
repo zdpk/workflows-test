@@ -1,4 +1,4 @@
-name: Test kt ci
+name: Test for actions/fmlint-kt@main
 on:
   workflow_dispatch:
   push:
