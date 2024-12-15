@@ -12,11 +12,15 @@ jobs:
         run: |
           echo "================================================"
           echo "=== gh api /repos/${{ github.repository }}/actions/runs/${{ github.run_id }}/jobs --jq '.jobs[]' ==="
-          jobs=$(gh api /repos/${{ github.repository }}/actions/runs/${{ github.run_id }}/jobs \
-            --jq '.jobs[] | .id' | tr '\n' ' ')
+          jobs_json=$(gh api /repos/${{ github.repository }}/actions/runs/${{ github.run_id }}/jobs \
+            --jq '.jobs[]'
 
+          echo "jobs_json = $jobs_json"
 
-          echo "jobs = $jobs"
+          jobs=(
+            $(jq -r '.id' <<< $jobs_json)
+          )
+
 
           for id in "${jobs[@]}"; do
             echo "id = $id"
