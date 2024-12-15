@@ -36,6 +36,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
+          cycle=0
           # if no jobs to monitor, exit monitor job
           # if [[ -z "${{ env.job_ids }}" ]]; then
           #   echo "No jobs to monitor. exiting monitor job"
@@ -55,6 +56,7 @@ jobs:
             
           echo "=== Starting Job Monitoring ==="
           while true; do         
+            cycle=$((cycle+1))
             # fetch all the jobs at once
             watching_jobs=$(gh api /repos/${{ github.repository }}/actions/runs/${{ github.run_id }}/jobs --jq \
             '.jobs[]
@@ -68,10 +70,12 @@ jobs:
               status=$(echo $job | jq -r '.status')
               echo "Job with id $id status: $status"
 
-              if [[ "$job_status" == "\"failure\"" ]]; then
+              if [[ "$job_status" == "failure" ]]; then
+                echo "[cycle: $cycle] Found failure job, cancelling all other jobs..."
                 cancel_workflow
                 break
               fi
+              echo "[cycle: $cycle] No failure job found"
             done
 
             echo "--- Monitoring cycle complete. Sleeping for ${{ env.MONITOR_CYCLE_SECONDS }} seconds ---"
