@@ -25,7 +25,9 @@ jobs:
             | select(.name != "monitor" and .steps != null )'
           echo "jobs = $jobs"
 
-          jobs=$(jq -c '.[]' <<< $jobs)
+          jobs=(
+            $(jq -c '.[]' <<< $jobs)
+          )
 
           for j in $jobs[@]; do
             echo "j = $j"
