@@ -1,0 +1,41 @@
+name: fetch-jobs
+
+on: workflow_dispatch
+
+jobs:
+  monitor:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Fetch jobs
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          echo "=== gh api /repos/${{ github.repository }}/actions/runs/${{ github.run_id }}/jobs --jq '.jobs[] ==="
+          jobs=$(gh api /repos/${{ github.repository }}/actions/runs/${{ github.run_id }}/jobs --jq '.jobs[]
+          echo "jobs = $jobs"            
+
+          echo "\n"
+
+          jobs=$(gh api /repos/${{ github.repository }}/actions/runs/${{ github.run_id }}/jobs --jq '.jobs[] \
+            | select(.name != "monitor" and .steps == null ) \
+            | tr '\n' ' ')
+          echo "jobs = $jobs"
+  ex1:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Ex1
+        run: |
+
+  ex2:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Ex2
+        run: |
+
+  always:
+    runs-on: ubuntu-latest
+    if: always()
+    steps:
+      - name: Always
+        run: |
+        

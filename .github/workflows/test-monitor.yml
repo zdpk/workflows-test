@@ -5,6 +5,8 @@ on:
 jobs:
   monitor:
     runs-on: ubuntu-latest
+    env:
+      MONITOR_CYCLE_SECONDS: 3
     steps:
       - name: List all jobs
         env:
@@ -18,9 +20,13 @@ jobs:
         id: prepare_job_list
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        # .steps == null -> if always()
         run: |
           echo "=== Preparing Job List to Monitor ==="
-          job_ids=$(gh api /repos/${{ github.repository }}/actions/runs/${{ github.run_id }}/jobs --jq '.jobs[] | select(.name != "monitor" and .steps == null ) | .id' | tr '\n' ' ')
+          job_ids=$(gh api /repos/${{ github.repository }}/actions/runs/${{ github.run_id }}/jobs --jq '.jobs[] \
+            | select(.name != "monitor" and .steps == null ) \
+            | .id' \
+            | tr '\n' ' ')
           echo "Job IDs to monitor: $job_ids"
           echo "job_ids=$job_ids" >> $GITHUB_ENV
           echo "=== Job List Preparation Completed ==="
@@ -29,12 +35,24 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
+          # if no jobs to monitor, exit monitor job
+          if [[ -z "${{ env.job_ids }}" ]]; then
+            echo "No jobs to monitor. exiting monitor job"
+            exit 0
+          fi
+            
           echo "=== Starting Job Monitoring ==="
           while true; do
             echo "--- Checking job statuses ---"
             
             all_jobs_completed=true
             failed_job_ids=""
+
+            # fetch all the jobs at once
+            jobs=$(gh api /repos/${{ github.repository }}/actions/runs/${{ github.run_id }}/jobs --jq '.jobs[] \
+            | select(.name != "monitor" and .steps == null ) \
+            | tr '\n' ' ')
+            echo "jobs: $jobs"
 
             for job_id in ${{ env.job_ids }}; do
               echo "Checking job with id $job_id"
@@ -68,8 +86,8 @@ jobs:
               echo "=== Cancellation Completed ==="
               exit 1
             fi
-            echo "--- Monitoring cycle complete. Sleeping for 3 seconds ---"
-            sleep 1
+            echo "--- Monitoring cycle complete. Sleeping for ${{ env.MONITOR_CYCLE_SECONDS }} seconds ---"
+            sleep ${{ env.MONITOR_CYCLE_SECONDS}}
           done
   jobA:
     runs-on: ubuntu-latest
