@@ -13,14 +13,16 @@ jobs:
           echo "================================================"
           echo "=== gh api /repos/${{ github.repository }}/actions/runs/${{ github.run_id }}/jobs --jq '.jobs[]' ==="
           jobs=$(gh api /repos/${{ github.repository }}/actions/runs/${{ github.run_id }}/jobs --jq '.jobs[]' | jq '.')
-          echo "jobs = $jobs"            
+          echo "jobs = $jobs"
 
+      - name: Fetch filtered jobs
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
           echo "================================================"
-          echo "\n"
-
           jobs=$(gh api /repos/${{ github.repository }}/actions/runs/${{ github.run_id }}/jobs \
             --jq '.jobs[] 
-            | select(.name != "monitor" and .steps == null )' \
+            | select(.name != "monitor" and .steps != null )' \
             | jq '.' \
             | tr '\n' ' ')
           echo "jobs = $jobs"
