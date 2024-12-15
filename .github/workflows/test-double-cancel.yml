@@ -13,7 +13,7 @@ jobs:
           echo "================================================"
           echo "=== gh api /repos/${{ github.repository }}/actions/runs/${{ github.run_id }}/jobs --jq '.jobs[]' ==="
           jobs=$(gh api /repos/${{ github.repository }}/actions/runs/${{ github.run_id }}/jobs \
-            --jq '.jobs[] | .id') | tr '\n' ' ')
+            --jq '.jobs[] | .id' | tr '\n' ' ')
 
 
           echo "jobs = $jobs"
