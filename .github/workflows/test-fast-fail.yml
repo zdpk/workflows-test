@@ -1,0 +1,32 @@
+name: Parallel Jobs with Fail-Fast
+
+on: workflow_dispatch
+
+jobs:
+  job1:
+    strategy:
+      fail-fast: true # 이 옵션이 중요합니다
+    runs-on: ubuntu-latest
+    steps:
+      - name: a
+        run: |
+          exit 1
+      # 작업 단계들
+
+  job2:
+    strategy:
+      fail-fast: true
+    runs-on: ubuntu-latest
+    steps:
+      - name: b
+        run: |
+          sleep 20
+
+  job3:
+    strategy:
+      fail-fast: true
+    runs-on: ubuntu-latest
+    steps:
+      - name: c
+        run: |
+          sleep 20
