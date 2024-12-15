@@ -1,0 +1,32 @@
+name: fetch-jobs
+
+on: workflow_dispatch
+
+jobs:
+  monitor:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Double Cancel jobs
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          echo "================================================"
+          echo "=== gh api /repos/${{ github.repository }}/actions/runs/${{ github.run_id }}/jobs --jq '.jobs[]' ==="
+          jobs=$(gh api /repos/${{ github.repository }}/actions/runs/${{ github.run_id }}/jobs \
+            --jq '.jobs[]' | jq '.id')
+
+          for id in $jobs; do
+            echo "id = $id"
+            res=gh api -X POST /repos/${{ github.repository }}/actions/jobs/$id/cancel
+
+            echo ================================
+            echo "res = $res"
+            
+          done
+
+  ex1:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Ex1
+        run: |
+          sleep 100
