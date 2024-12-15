@@ -59,3 +59,24 @@ echo ===============================
 for i in "${bash_arr[@]}"; do
     echo $i
 done
+
+# echo ===============================
+# jq -c '.jobs[] | select(.steps == null)' <<< $json | while read -r line; do
+#     echo $line
+# done
+
+# HERE STRING
+res=$(jq -c '.jobs[]' <<< $json)
+echo ===============================
+echo res: $res
+echo
+echo res[@]: ${res[@]}
+# [@]을 붙이면 배열 모든 요소 보여줌(space로 구분된)
+
+res=(
+    $(jq -c '.jobs[]' <<< $json)
+)
+echo ===============================
+echo res: $res
+echo
+echo res[@]: ${res[@]}

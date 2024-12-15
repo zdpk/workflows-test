@@ -21,10 +21,11 @@ jobs:
         run: |
           echo "================================================"
           jobs=$(gh api /repos/${{ github.repository }}/actions/runs/${{ github.run_id }}/jobs \
-            --jq -c '.jobs[] 
-            | select(.name != "monitor" and .steps != null )' \
-            | tr '\n' ' ')
+            --jq '.jobs[]
+            | select(.name != "monitor" and .steps != null )'
           echo "jobs = $jobs"
+
+          jobs=$(jq -c '.[]' <<< $jobs)
 
           for j in $jobs[@]; do
             echo "j = $j"
