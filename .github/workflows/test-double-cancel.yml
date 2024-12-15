@@ -21,7 +21,7 @@ jobs:
 
           for id in "${jobs[@]}"; do
             echo "id = $id"
-            res=gh api -X POST /repos/${{ github.repository }}/actions/jobs/$id/cancel
+            res=$(gh api -X POST /repos/${{ github.repository }}/actions/jobs/$id/cancel)
 
             echo ================================
             echo "res = $res"
