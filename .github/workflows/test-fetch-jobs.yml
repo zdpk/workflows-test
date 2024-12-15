@@ -21,11 +21,14 @@ jobs:
         run: |
           echo "================================================"
           jobs=$(gh api /repos/${{ github.repository }}/actions/runs/${{ github.run_id }}/jobs \
-            --jq '.jobs[] 
+            --jq -c '.jobs[] 
             | select(.name != "monitor" and .steps != null )' \
-            | jq '.' \
             | tr '\n' ' ')
           echo "jobs = $jobs"
+
+          for j in $jobs[@]; do
+            echo "j = $j"
+          done
   ex1:
     runs-on: ubuntu-latest
     steps:

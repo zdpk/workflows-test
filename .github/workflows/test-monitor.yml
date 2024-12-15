@@ -23,8 +23,9 @@ jobs:
         # .steps == null -> if always()
         run: |
           echo "=== Preparing Job List to Monitor ==="
-          job_ids=$(gh api /repos/${{ github.repository }}/actions/runs/${{ github.run_id }}/jobs --jq '.jobs[] \
-            | select(.name != "monitor" and .steps == null ) \
+          job_ids=$(gh api /repos/${{ github.repository }}/actions/runs/${{ github.run_id }}/jobs \
+            --jq '.jobs[]
+            | select(.name != "monitor" and .steps == null )
             | .id' \
             | tr '\n' ' ')
           echo "Job IDs to monitor: $job_ids"
@@ -49,10 +50,10 @@ jobs:
             failed_job_ids=""
 
             # fetch all the jobs at once
-            jobs=$(gh api /repos/${{ github.repository }}/actions/runs/${{ github.run_id }}/jobs --jq '.jobs[] \
-            | select(.name != "monitor" and .steps == null ) \
+            watching_jobs=$(gh api /repos/${{ github.repository }}/actions/runs/${{ github.run_id }}/jobs --jq '.jobs[] \
+            | select(.name != "monitor" and .steps != null ) \
             | tr '\n' ' ')
-            echo "jobs: $jobs"
+            echo "watching_jobs: $watching_jobs"
 
             for job_id in ${{ env.job_ids }}; do
               echo "Checking job with id $job_id"
