@@ -19,7 +19,7 @@ jobs:
           echo "job_ids = $job_ids"
           echo "================================================"
 
-          for job_id in "${job_ids[@]}"; do
+          for job_id in "$job_ids"; do
             echo "job_id = $job_id"
             res=$(gh api -X POST /repos/${{ github.repository }}/actions/jobs/$job_id/cancel)
 
