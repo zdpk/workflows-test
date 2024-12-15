@@ -13,7 +13,11 @@ jobs:
           echo "================================================"
           echo "=== gh api /repos/${{ github.repository }}/actions/runs/${{ github.run_id }}/jobs --jq '.jobs[]' ==="
           job_ids=$(gh api /repos/${{ github.repository }}/actions/runs/${{ github.run_id }}/jobs \
-            --jq '.jobs[].id')
+            --jq -r '.jobs[].id') # -r은 ' '가 아닌 '\n'으로 요소 구분(문자열이 아닌 배열 형태)
+
+          echo "================================================"
+          echo "job_ids = $job_ids"
+          echo "================================================"
 
           for job_id in "${job_ids[@]}"; do
             echo "job_id = $job_id"
