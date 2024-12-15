@@ -20,7 +20,7 @@ jobs:
           echo "================================================"
 
           cancel_url="/repos/${{ github.repository_owner }}/${{ github.repository }}/actions/runs/${{ github.run_id }}/cancel"
-
+          echo "cancel_url = $cancel_url"
 
           gh api \
             --method POST \
