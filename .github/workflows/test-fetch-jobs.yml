@@ -32,7 +32,7 @@ jobs:
           echo ================================
 
           for j in $jobs[@]; do
-            echo "j = $(jq '.' $j)"
+            echo "$(jq '.') <<< $j"
           done
   ex1:
     runs-on: ubuntu-latest
