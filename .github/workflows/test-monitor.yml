@@ -57,20 +57,23 @@ jobs:
           echo "=== Starting Job Monitoring ==="
           while true; do         
             cycle=$((cycle+1))
-            # fetch all the jobs at once
+            # fetch all the jobs at once(JSON array)
             watching_jobs=$(gh api /repos/${{ github.repository }}/actions/runs/${{ github.run_id }}/jobs --jq \
             '.jobs[]
-            | select(.name != "monitor" and .steps != null)' \
-            | tr '\n' ' ')
+            | select(.name != "monitor" and .steps != null)')
+            # | tr '\n' ' ')
             echo "watching_jobs: $watching_jobs"
 
             # check if some of jobs are failed
+            # IFS(Internal Field Separator)를 줄바꿈으로 설정
+            IFS=$'\n'
             for job in $watching_jobs; do
               id=$(echo $job | jq -r '.id')
               status=$(echo $job | jq -r '.status')
-              echo "Job with id $id status: $status"
+              conclusion=$(echo $job | jq -r '.conclusion')
+              echo "Job with id: $id, status: $status, conclusion: $conclusion"
 
-              if [[ "$job_status" == "failure" ]]; then
+              if [[ "$status" == "completed" && "conclusion" == "failure" ]]; then
                 echo "--- [cycle: $cycle] Found failure job, cancelling all other jobs...---"
                 cancel_workflow
                 break
