@@ -62,7 +62,9 @@ jobs:
             '.jobs[]
             | select(.name != "monitor" and .steps != null)')
             # | tr '\n' ' ')
-            echo "watching_jobs: $watching_jobs"
+            # JSON 형식으로 포맷팅하여 출력
+            echo "watching_jobs:"
+            echo "$watching_jobs" | jq '.'
 
             # check if some of jobs are failed
             # IFS(Internal Field Separator)를 줄바꿈으로 설정
@@ -73,7 +75,7 @@ jobs:
               conclusion=$(echo $job | jq -r '.conclusion')
               echo "Job with id: $id, status: $status, conclusion: $conclusion"
 
-              if [[ "$status" == "completed" && "conclusion" == "failure" ]]; then
+              if [[ "conclusion" == "failure" ]]; then
                 echo "--- [cycle: $cycle] Found failure job, cancelling all other jobs...---"
                 cancel_workflow
                 break
