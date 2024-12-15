@@ -75,10 +75,10 @@ jobs:
               conclusion=$(echo $job | jq -r '.conclusion')
               echo "Job with id: $id, status: $status, conclusion: $conclusion"
 
-              if [[ "conclusion" == "failure" ]]; then
+              if [[ "status" == "completed" && "conclusion" == "failure" ]]; then
                 echo "--- [cycle: $cycle] Found failure job, cancelling all other jobs...---"
                 cancel_workflow
-                break
+                exit 0
               fi
             done
 
