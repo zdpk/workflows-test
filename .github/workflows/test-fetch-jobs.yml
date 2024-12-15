@@ -26,8 +26,10 @@ jobs:
           echo "jobs = $jobs"
 
           jobs=(
-            $(jq -c '.[]' <<< $jobs)
+            $(jq -c '.' <<< $jobs)
           )
+
+          echo ================================
 
           for j in $jobs[@]; do
             echo "j = $j"
