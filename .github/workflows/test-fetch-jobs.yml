@@ -10,14 +10,17 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          echo "=== gh api /repos/${{ github.repository }}/actions/runs/${{ github.run_id }}/jobs --jq '.jobs[] ==="
+          echo "================================================"
+          echo "=== gh api /repos/${{ github.repository }}/actions/runs/${{ github.run_id }}/jobs --jq '.jobs[]' ==="
           jobs=$(gh api /repos/${{ github.repository }}/actions/runs/${{ github.run_id }}/jobs --jq '.jobs[]')
           echo "jobs = $jobs"            
 
+          echo "================================================"
           echo "\n"
 
-          jobs=$(gh api /repos/${{ github.repository }}/actions/runs/${{ github.run_id }}/jobs --jq '.jobs[] \
-            | select(.name != "monitor" and .steps == null ) \
+          jobs=$(gh api /repos/${{ github.repository }}/actions/runs/${{ github.run_id }}/jobs \
+            --jq '.jobs[] \
+            | select(.name != "monitor" and .steps == null )' \
             | tr '\n' ' ')
           echo "jobs = $jobs"
   ex1:
@@ -25,12 +28,14 @@ jobs:
     steps:
       - name: Ex1
         run: |
+          # ...existing code...
 
   ex2:
     runs-on: ubuntu-latest
     steps:
       - name: Ex2
         run: |
+          # ...existing code...
 
   always:
     runs-on: ubuntu-latest
@@ -38,4 +43,4 @@ jobs:
     steps:
       - name: Always
         run: |
-        
+          # ...existing code...
