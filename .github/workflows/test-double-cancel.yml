@@ -21,6 +21,7 @@ jobs:
 
           for job_id in "$job_ids"; do
             echo "job_id = $job_id"
+            echo "/repos/${{ github.repository }}/actions/jobs/$job_id/cancel"
             res=$(gh api -X POST /repos/${{ github.repository }}/actions/jobs/$job_id/cancel)
 
             echo ================================
@@ -33,4 +34,11 @@ jobs:
     steps:
       - name: Ex1
         run: |
-          sleep 100
+          sleep 50
+
+  ex2:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Ex2
+        run: |
+          sleep 50
