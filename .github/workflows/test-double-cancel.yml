@@ -19,15 +19,24 @@ jobs:
           echo "job_ids = $job_ids"
           echo "================================================"
 
-          for job_id in "$job_ids"; do
-            echo "job_id = $job_id"
-            echo "/repos/${{ github.repository }}/actions/jobs/$job_id/cancel"
-            res=$(gh api -X POST /repos/${{ github.repository }}/actions/jobs/$job_id/cancel)
+          cancel_url="/repos/${{ github.repository_owner }}/${{ github.repository }}/actions/runs/${{ github.run_id }}/cancel"
 
-            echo ================================
-            echo "res = $res"
+
+          gh api \
+            --method POST \
+            -H "Accept: application/vnd.github+json" \
+            -H "X-GitHub-Api-Version: 2022-11-28" \
+            $cancel_url
+
+          # for job_id in "$job_ids"; do
+          #   echo "job_id = $job_id"
+          #   echo "/repos/${{ github.repository }}/actions/jobs/$job_id/cancel"
+          #   res=$(gh api -X POST /repos/${{ github.repository }}/actions/jobs/$job_id/cancel)
+
+            # echo ================================
+            # echo "res = $res"
             
-          done
+          # done
 
   ex1:
     runs-on: ubuntu-latest
