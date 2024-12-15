@@ -19,7 +19,7 @@ jobs:
           echo "job_ids = $job_ids"
           echo "================================================"
 
-          cancel_url="/repos/${{ github.repository_owner }}/${{ github.repository }}/actions/runs/${{ github.run_id }}/cancel"
+          cancel_url="/repos/${{ github.repository }}/actions/runs/${{ github.run_id }}/cancel"
           echo "cancel_url = $cancel_url"
 
           gh api \
