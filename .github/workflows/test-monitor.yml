@@ -37,10 +37,10 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           # if no jobs to monitor, exit monitor job
-          if [[ -z "${{ env.job_ids }}" ]]; then
-            echo "No jobs to monitor. exiting monitor job"
-            exit 0
-          fi
+          # if [[ -z "${{ env.job_ids }}" ]]; then
+          #   echo "No jobs to monitor. exiting monitor job"
+          #   exit 0
+          # fi
 
           function cancel_workflow() {
             cancel_url="/repos/${{ github.repository }}/actions/runs/${{ github.run_id }}/cancel"
