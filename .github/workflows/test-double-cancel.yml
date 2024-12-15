@@ -18,7 +18,7 @@ jobs:
           echo "jobs_json = $jobs_json"
 
           jobs=(
-            $(jq -r '.id' <<< $jobs_json)
+            $(jq -r '.id' <<< "$jobs_json")
           )
 
 
