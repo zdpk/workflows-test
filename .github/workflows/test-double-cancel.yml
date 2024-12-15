@@ -51,3 +51,12 @@ jobs:
       - name: Ex2
         run: |
           sleep 50
+
+  always:
+    runs-on: ubuntu-latest
+    if: always()
+    steps:
+      - name: Always
+        run: |
+          echo "Always"
+          sleep 50
