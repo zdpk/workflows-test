@@ -1,0 +1,59 @@
+name: Monitor Jobs
+on:
+  workflow_dispatch:
+jobs:
+  monitor:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Monitor Jobs
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          while true; do
+            echo "Checking job statuses..."
+            job_ids=$(gh api /repos/${{ github.repository }}/actions/runs/${{ github.run_id }}/jobs --jq '.jobs[].id' | tr '\n' ' ')
+            echo "Found job ids: $job_ids"
+            
+            # job status를 확인하는 로직
+            for job_id in $job_ids; do
+              echo "Checking job with id $job_id"
+              job_status=$(gh api /repos/${{ github.repository }}/actions/jobs/${job_id} --jq .status)
+              echo "job with id $job_id status: $job_status"
+
+              if [[ "$job_status" == "\"failure\"" ]] || [[ "$job_status" == "\"cancelled\"" ]]; then
+                echo "Found failure or cancelled job, cancelling all other jobs..."
+                # 다른 job들을 cancel하는 로직
+                for other_job_id in $job_ids; do
+                  if [[ "$other_job_id" != "$job_id" ]]; then
+                   echo "Cancelling job with id: $other_job_id"
+                    gh api -X POST /repos/${{ github.repository }}/actions/jobs/$other_job_id/cancel
+                  fi
+                done
+                exit 1
+              fi
+            done
+            sleep 1
+          done
+  jobA:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Job A Step
+        run: |
+          echo "Running Job A"
+          # 실패를 시뮬레이트하기 위해 일부러 오류 발생
+          sleep 2
+          exit 1
+  jobB:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Job B Step
+        run: |
+          sleep 10
+          echo "Running Job B"
+  jobC:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Job C Step
+        run: |
+          sleep 10
+          echo "Running Job C"
