@@ -65,19 +65,19 @@ jobs:
             echo "watching_jobs: $watching_jobs"
 
             # check if some of jobs are failed
-            for job in ${{ env.watching_jobs }}; do
+            for job in $watching_jobs; do
               id=$(echo $job | jq -r '.id')
               status=$(echo $job | jq -r '.status')
               echo "Job with id $id status: $status"
 
               if [[ "$job_status" == "failure" ]]; then
-                echo "[cycle: $cycle] Found failure job, cancelling all other jobs..."
+                echo "--- [cycle: $cycle] Found failure job, cancelling all other jobs...---"
                 cancel_workflow
                 break
               fi
-              echo "[cycle: $cycle] No failure job found"
             done
 
+            echo "--- [cycle: $cycle] No failure job found ---"
             echo "--- Monitoring cycle complete. Sleeping for ${{ env.MONITOR_CYCLE_SECONDS }} seconds ---"
             sleep ${{ env.MONITOR_CYCLE_SECONDS}}
           done
