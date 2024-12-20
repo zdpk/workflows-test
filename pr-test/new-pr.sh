@@ -58,8 +58,9 @@ while true; do
 
     # 경과 시간 계산 (밀리초 단위)
     elapsed_time=$(( (end_time_sec - start_time_sec) * 1000 + (end_time_nsec - start_time_nsec) / 1000000 ))
-    
+    echo "======================================"
     echo "After $elapsed_time ms from start"
+    echo "======================================"
     if [[ -n $pr_info ]]; then
         echo "PR is created: $pr_info"
         break
