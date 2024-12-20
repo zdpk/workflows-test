@@ -19,7 +19,6 @@ create_pr() {
         --head "$HEAD_BRANCH" \
         --base "$BASE_BRANCH" \
         --title "TEST PR $now" \
-        --label "auto-deployment" \
         --body "TEST PR $now"
 }
 
