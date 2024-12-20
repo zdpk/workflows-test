@@ -43,14 +43,22 @@ delete_branch() {
 rand_branch_name=$(date +%s | sha256sum | base64 | head -c 32)
 target_branch_name="main"
 
-start_time=$(date +%s%N)
+# 시작 시간 기록 (초와 나노초를 분리하여 기록)
+start_time_sec=$(date +%s)
+start_time_nsec=$(date +%N)
+
 create_test_branch "$rand_branch_name"
 create_pr "$rand_branch_name" "$target_branch_name"
 
 while true; do
     pr_info=$(fetch_pr_info "$rand_branch_name" "$target_branch_name")
-    end_time=$(date +%s%N)
-    elapsed_time=$(( (end_time - start_time) / 1000000 ))
+    # 종료 시간 기록 (초와 나노초를 분리하여 기록)
+    end_time_sec=$(date +%s)
+    end_time_nsec=$(date +%N)
+
+    # 경과 시간 계산 (밀리초 단위)
+    elapsed_time=$(( (end_time_sec - start_time_sec) * 1000 + (end_time_nsec - start_time_nsec) / 1000000 ))
+    
     echo "After $elapsed_time ms from start"
     if [[ -n $pr_info ]]; then
         echo "PR is created: $pr_info"
