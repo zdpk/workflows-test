@@ -65,7 +65,7 @@ while true; do
         echo "PR is created: $pr_info"
         break
     fi
-    sleep 0.1
+    sleep 0.01
 done
 
 delete_branch "$rand_branch_name"
