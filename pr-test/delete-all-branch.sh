@@ -4,8 +4,6 @@ set -e
 
 # 화이트리스트에 포함된 브랜치 (삭제되지 않음)
 whitelist=("main" "develop")
-owner=xezv
-repo=workflows-test
 
 # 현재 리포지토리의 모든 브랜치를 가져옵니다.
 branches=$(gh repo view --json nameWithOwner -q .nameWithOwner | xargs -I {} gh api repos/{}/branches --jq '.[].name')
