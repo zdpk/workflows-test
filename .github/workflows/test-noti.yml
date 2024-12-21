@@ -8,7 +8,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
-        uses: zdpk/workflows/.github/workflows/send-discord-message.yml
+        uses: zdpk/workflows/.github/workflows/send-discord-message@main
         with:
           discord_webhook_url: ${{ secrets.DISCORD_WEBHOOK_URL }}
           title: "Approve PR to proceed deploy(PR 1)"
