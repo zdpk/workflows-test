@@ -15,7 +15,7 @@ jobs:
       status: "success"
       actor: ${{ github.actor }}
       fields: |
-        field1: abc, field2: cde
-        field3: sdf
-        field4: zzz
-        field5: qwe, field6: asd, field7: efg
+        field1::abc, field2::cde
+        field3::sdf
+        field4::zzz
+        field5::qwe, field6:: asd, field7:: efg
