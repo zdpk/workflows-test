@@ -9,6 +9,7 @@ jobs:
     secrets:
       DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
     with:
+      debug: true
       title: "Approve PR to proceed deploy(PR 1)"
       description: "Test message from reusable workflow"
       status: "success"
