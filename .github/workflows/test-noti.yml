@@ -5,7 +5,7 @@ on:
 
 jobs:
   send:
-    uses: zdpk/workflows/.github/workflows/send-discord-message.yml@main
+    uses: zdpk/workflows/.github/workflows/send-notification.yml@main
     secrets:
       DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
       SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
