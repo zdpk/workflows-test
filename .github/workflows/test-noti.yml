@@ -8,6 +8,7 @@ jobs:
     uses: zdpk/workflows/.github/workflows/send-discord-message.yml@main
     secrets:
       DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
+      SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
     with:
       debug: true
       title: "Approve PR to proceed deploy(PR 1)"
@@ -17,5 +18,5 @@ jobs:
       fields: |
         field1::abc, field2::cde
         field3::sdf
-        field4::zzz
+        field4::[url](https://github.com)
         field5::qwe, field6:: asd, field7:: efg
