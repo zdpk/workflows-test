@@ -1,0 +1,25 @@
+name: Test PR Trigger
+
+on:
+  pull_request:
+    types: [closed]
+
+jobs:
+  pr-merged:
+    runs-on: ubuntu-latest
+    if: github.event.pull_request.merged == true
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      - name: Run tests
+        run: |
+          echo "MERGED"
+  pr-not-merged:
+    runs-on: ubuntu-latest
+    if: github.event.pull_request.merged == false
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      - name: Run tests
+        run: |
+          echo "NOT MERGED"
