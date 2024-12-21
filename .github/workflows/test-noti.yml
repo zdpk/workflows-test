@@ -6,8 +6,9 @@ on:
 jobs:
   send:
     uses: zdpk/workflows/.github/workflows/send-discord-message.yml@main
+    secrets:
+      DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
     with:
-      discord_webhook_url: ${{ secrets.DISCORD_WEBHOOK_URL }}
       title: "Approve PR to proceed deploy(PR 1)"
       description: "Test message from reusable workflow"
       status: "success"
