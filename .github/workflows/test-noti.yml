@@ -1,0 +1,22 @@
+name: test discord notification
+
+on:
+  workflow_dispatch:
+
+jobs:
+  send:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: ./.github/workflows/send-discord-message.yml
+        with:
+          discord_webhook_url: ${{ secrets.DISCORD_WEBHOOK_URL }}
+          title: "Approve PR to proceed deploy(PR 1)"
+          description: "Test message from reusable workflow"
+          status: "success"
+          actor: ${{ github.actor }}
+          fields: |
+            field1: abc, field2: cde
+            field3: sdf
+            field4: zzz
+            field5: qwe, field6: asd, field7: efg
