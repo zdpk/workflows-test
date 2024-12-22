@@ -51,7 +51,11 @@ jobs:
     with:
       repository: ${{ github.repository }}
       pr_number: ${{ needs.create-pr.outputs.pr_number }}
-      body: "test comment body"
+      body: |
+        # test
+        - Result: success
+        - Result: success
+      
 
   debug:
     needs: [create-pr, create-pr-comment]
