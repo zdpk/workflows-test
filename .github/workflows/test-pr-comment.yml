@@ -14,8 +14,12 @@ jobs:
       - name: Create branches
         run: |
           git switch -c test-base-branch
+          git config user.name unknown
+          git config user.email unknown@unknown.com
           git push origin HEAD
           git switch -c test-head-branch
+          git config user.name unknown
+          git config user.email unknown@unknown.com          
           echo a > a
           git add a
           git commit -m "a"
