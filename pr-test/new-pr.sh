@@ -1,6 +1,7 @@
 create_base_branch() {
     local branch_name=$1
     git switch -c "$branch_name"
+    ehco $(uuidgen) > testfile
     git add .
     git commit -m .
     git push origin "$branch_name"
@@ -109,3 +110,4 @@ pr_url=$(jq -r '.url' <<< "$r")
 echo "pr_number=$pr_number"
 echo "pr_url=$pr_url"
 
+git switch main
