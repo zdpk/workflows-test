@@ -21,6 +21,11 @@ jobs:
           git commit -m "a"
           git push origin HEAD
 
+  create-pr:
+    needs: create-branches
+    uses: zdpk/workflows/.github/workflows/create-pr.yml@main
+
+
   create-pr-comment:
     needs: create-branches
     secrets: 
@@ -31,3 +36,4 @@ jobs:
       head-branch: test-head-branch
       title: "test comment"
       description: "test comment body"
+      repository: ${{ github.repository }}
