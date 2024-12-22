@@ -90,6 +90,8 @@ create_base_branch "$b1"
 create_head_branch "$b2"
 create_pr "$b1" "$b2"
 
+r=$(fetch_pr_info "$b1" "$b2")
+echo "r=$r"
 echo $(gh pr list --head "origin/$b1" --base "origin/$b2" --json url,number)
 
 r=$(gh pr list \
