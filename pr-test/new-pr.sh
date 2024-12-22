@@ -29,8 +29,8 @@ create_head_branch() {
 
 # create pr and calc delay when pr is created
 create_pr() {
-    local head_branch="$1"
-    local base_branch="$2"
+    local base_branch="$1"
+    local head_branch="$2"
     
     local now=$(date +"%Y-%m-%d %H:%M:%S.%3N")
 
