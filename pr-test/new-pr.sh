@@ -10,7 +10,7 @@ create_test_branch() {
     local branch_name=$1
     # create branch
     git switch -c "$branch_name"
-    echo test > testfile
+    echo x >> testfile
     git add .
     git commit -m "test commit"
     git push origin "$branch_name"
