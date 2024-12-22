@@ -131,7 +131,7 @@ echo "pr_number=$pr_number"
 echo "pr_url=$pr_url"
 
 body=$(cat <<EOF
-    # TEST
+    TEST
     echo "Test PR"
 EOF)
 
