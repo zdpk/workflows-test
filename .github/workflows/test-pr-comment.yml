@@ -31,7 +31,6 @@ jobs:
       head_branch: test-head-branch
       title: "test comment"
       body: "test comment body"
-      repository: ${{ github.repository }}
 
 
   create-pr-comment:
