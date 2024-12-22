@@ -29,9 +29,9 @@ create_pr() {
         --title "TEST PR $now" \
         --body "TEST PR $now")
 
-    pr_number=$(echo "$pr_url" | sed 's|.*/pull/\([0-9]*\)$|\1|')
-    echo "pr_number=$pr_number"
-    echo "pr_url=$pr_url"
+    # pr_number=$(echo "$pr_url" | sed 's|.*/pull/\([0-9]*\)$|\1|')
+    # echo "pr_number=$pr_number"
+    # echo "pr_url=$pr_url"
 }
 
 fetch_pr_info() {
@@ -89,6 +89,14 @@ create_base_branch "$b1"
 create_test_branch "$b2"
 create_pr "$rand_branch_name" "$target_branch_name"
 
-r=$(gh pr list --json url --jq '.[0] | .url')
+echo $(gh pr list --json url,number --jq '.[0]')
+
+r=$(gh pr list --json url,number --jq '.[0]')
 
 echo "$r"
+
+pr_number=(jq -r '.number' <<< $r)
+pr_url=(jq -r '.url' <<< $r)
+
+echo "pr_number=$pr_number"
+echo "pr_url=$pr_url"
