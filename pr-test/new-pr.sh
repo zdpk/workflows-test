@@ -112,13 +112,17 @@ r=$(gh pr list \
     --jq '.[0]')
 
 r2=$(gh pr list \
-    --head "$head1" \
-    --base "$base" \
+    --head "" \
+    --base "" \
     --json url,number \
     --jq '.[0]')
 
 echo "r=$r"
 echo "r2=$r2"
+
+if [[ -z "$r2" || "$r2" == "[]" ]]; then
+    echo "isempty"
+fi
 
 pr_number=$(echo "$r" | jq -r '.url')
 pr_url=$(jq -r '.url' <<< "$r")
