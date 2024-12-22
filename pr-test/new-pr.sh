@@ -6,7 +6,7 @@ create_base_branch() {
     git push origin "$branch_name"
 }
 
-create_test_branch() {
+create_head_branch() {
     local branch_name=$1
     # create branch
     git switch -c "$branch_name"
@@ -87,14 +87,14 @@ delete_branch() {
 b1=$(uuidgen)
 b2=$(uuidgen)
 create_base_branch "$b1"
-create_test_branch "$b2"
+create_head_branch "$b2"
 create_pr "$b1" "$b2"
 
-echo $(gh pr list --head "$b1" --base "$b2" --json url,number)
+echo $(gh pr list --head "origin/$b1" --base "origin/$b2" --json url,number)
 
 r=$(gh pr list \
-    --head "$b1" \
-    --base "$b2" \
+    --head "origin/$b1" \
+    --base "origin/$b2" \
     --json url,number \
     --jq '.[0]')
 
