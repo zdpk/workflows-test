@@ -37,8 +37,8 @@ create_pr() {
 }
 
 fetch_pr_info() {
-    local head_branch="$1"
-    local base_branch="$2"
+    local base_branch="$1"
+    local head_branch="$2"
     local pr_info=$(gh pr list \
         --head "$head_branch" \
         --base "$base_branch" \
