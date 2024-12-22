@@ -24,8 +24,8 @@ create_pr() {
     local now=$(date +"%Y-%m-%d %H:%M:%S.%3N")
 
     pr_url=$(gh pr create \
-        --head "$HEAD_BRANCH" \
-        --base "$BASE_BRANCH" \
+        --head "$head_branch" \
+        --base "$base_branch" \
         --title "TEST PR $now" \
         --body "TEST PR $now")
 
