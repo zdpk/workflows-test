@@ -30,7 +30,7 @@ jobs:
       base_branch: test-base-branch
       head_branch: test-head-branch
       title: "test comment"
-      description: "test comment body"
+      body: "test comment body"
       repository: ${{ github.repository }}
 
 
