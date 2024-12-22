@@ -1,0 +1,38 @@
+name: Test PR Create Comment
+
+on:
+  workflow_dispatch: 
+
+jobs:
+  create-branches:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Create branches
+        run: |
+          git switch -c test-base-branch
+          git push origin HEAD
+          git switch -c test-head-branch
+          echo a > a
+          git add a
+          git commit -m "a"
+          git push origin HEAD
+
+  create-pr-comment:
+    runs-on: ubuntu-latest
+    needs: create-branches
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      - name: Create PR comment
+        env: 
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        uses: zdpk/workflows/.github/workflows/create-pr-comment.yml@main
+        with:
+          base-branch: test-base-branch
+          head-branch: test-head-branch
+          title: "test comment"
+          body: "test comment body"
