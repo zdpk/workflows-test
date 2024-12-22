@@ -15,13 +15,15 @@ create_pr() {
     
     local now=$(date +"%Y-%m-%d %H:%M:%S.%3N")
 
-    result=$(gh pr create \
+    pr_number=$(gh pr create \
         --head "$HEAD_BRANCH" \
         --base "$BASE_BRANCH" \
         --title "TEST PR $now" \
         --body "TEST PR $now")
 
-    echo "result=$result"
+    pr_number=$(echo "$pr_url" | sed 's|.*/pull/\([0-9]*\)$|\1|')
+    echo "pr_number=$pr_number"
+    echo "pr_url=$pr_url"
 }
 
 fetch_pr_info() {
