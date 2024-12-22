@@ -7,6 +7,7 @@ create_base_branch() {
 }
 
 create_head_branch() {
+    echo "current branch: $(git branch --show-current)"
     local branch_name=$1
     # create branch
     git switch -c "$branch_name"
