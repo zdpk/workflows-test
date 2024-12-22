@@ -30,4 +30,4 @@ jobs:
       base-branch: test-base-branch
       head-branch: test-head-branch
       title: "test comment"
-      body: "test comment body"
+      description: "test comment body"
