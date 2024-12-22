@@ -1,5 +1,5 @@
-rand_branch_name=$(cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 8 | head -n 1)
-rand_branch_name2=$(cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 8 | head -n 1)
+rand_branch_name=$(date +%s | sha256sum | base64 | head -c 32)
+rand_branch_name2=$(date +%s | sha256sum | base64 | head -c 31)
 
 if git rev-parse "origin/$rand_branch_name" > /dev/null 2>&1; then
     echo "Error: Not a git repository"
