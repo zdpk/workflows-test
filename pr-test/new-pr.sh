@@ -85,19 +85,19 @@ delete_branch() {
 
 
 
-b1=$(uuidgen)
-b2=$(uuidgen)
-create_base_branch "$b1"
-create_head_branch "$b2"
-create_pr "$b1" "$b2"
+base=$(uuidgen)
+head=$(uuidgen)
+create_base_branch "$base"
+create_head_branch "$head"
+create_pr "$base" "$head"
 
-r=$(fetch_pr_info "$b1" "$b2")
+r=$(fetch_pr_info "$base" "$head")
 echo "r=$r"
-echo $(gh pr list --head "$b1" --base "$b2" --json url,number)
+echo $(gh pr list --base "$base" --head "$head" --json url,number)
 
 r=$(gh pr list \
-    --head "$b1" \
-    --base "$b2" \
+    --head "$head" \
+    --base "$base" \
     --json url,number \
     --jq '.[0]')
 
