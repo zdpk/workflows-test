@@ -130,7 +130,7 @@ pr_url=$(jq -r '.url' <<< "$r")
 echo "pr_number=$pr_number"
 echo "pr_url=$pr_url"
 
-body=$(cat <<-EOF
+body=<<-EOF
 TEST
 This is a test PR.
 
@@ -139,7 +139,6 @@ Details:
 - Please review and approve.
 
 EOF
-)
 
 
 resp=$(gh pr comment "$pr_number" --body "$body")
