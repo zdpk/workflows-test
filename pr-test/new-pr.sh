@@ -95,8 +95,8 @@ delete_branch() {
 
 
 
-base=$(uuidgen)
-head=$(uuidgen)
+base="base-$(uuidgen)"
+head="head-$(uuidgen)"
 create_base_branch "$base"
 create_head_branch "$head"
 create_pr "$base" "$head"
