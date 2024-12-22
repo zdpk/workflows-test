@@ -11,7 +11,7 @@ create_head_branch() {
     local branch_name=$1
     # create branch
     git switch -c "$branch_name"
-    echo x >> testfile
+    echo $(uuidgen) >> testfile
     git add .
     git commit -m "test commit"
     git push origin "$branch_name"
