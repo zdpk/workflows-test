@@ -90,6 +90,8 @@ create_base_branch "$b1"
 create_test_branch "$b2"
 create_pr "$b1" "$b2"
 
+echo $(gh pr list --head "$b1" --base "$b2" --json url,number)
+
 r=$(gh pr list \
     --head "$b1" \
     --base "$b2" \
