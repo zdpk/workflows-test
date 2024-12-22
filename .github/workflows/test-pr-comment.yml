@@ -15,7 +15,7 @@ jobs:
         run: |
           if ! git rev-parse --verify test-base-branch >/dev/null 2>&1; then
             git switch -c test-base-branch
-            git pull
+            git pull origin HEAD
             git config user.name unknown
             git config user.email unknown@unknown.com
             git push origin HEAD
@@ -23,7 +23,7 @@ jobs:
           
           if ! git rev-parse --verify test-head-branch >/dev/null 2>&1; then
             git switch -c test-head-branch
-            git pull
+            git pull origin HEAD
             git config user.name unknown
             git config user.email unknown@unknown.com          
             echo a > a
