@@ -106,7 +106,7 @@ echo "r=$r"
 echo $(gh pr list --base "$base" --head "$head" --json url,number)
 
 r=$(gh pr list \
-    --head "$head" \
+    --head "$head1" \
     --base "$base" \
     --json url,number \
     --jq '.[0]')
