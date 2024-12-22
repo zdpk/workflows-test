@@ -130,7 +130,12 @@ pr_url=$(jq -r '.url' <<< "$r")
 echo "pr_number=$pr_number"
 echo "pr_url=$pr_url"
 
-resp=$(gh pr comment "$pr_number" --body "test")
+body= '
+    # TEST
+    echo "Test PR"
+'
+
+resp=$(gh pr comment "$pr_number" --body "$body")
 echo "resp=$resp"
 
 git switch main
