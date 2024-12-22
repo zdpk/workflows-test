@@ -29,6 +29,7 @@ create_pr() {
         --title "TEST PR $now" \
         --body "TEST PR $now")
 
+    echo "pr created url: $pr_url"
     # pr_number=$(echo "$pr_url" | sed 's|.*/pull/\([0-9]*\)$|\1|')
     # echo "pr_number=$pr_number"
     # echo "pr_url=$pr_url"
