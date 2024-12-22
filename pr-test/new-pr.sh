@@ -1,3 +1,11 @@
+create_base_branch() {
+    local branch_name=$1
+    git switch -c "$branch_name"
+    git add .
+    git commit -m .
+    git push origin "$branch_name"
+}
+
 create_test_branch() {
     local branch_name=$1
     # create branch
@@ -44,35 +52,41 @@ delete_branch() {
     git push origin --delete "$branch_name"
 }
 
-rand_branch_name=$(date +%s | sha256sum | base64 | head -c 32)
-target_branch_name="main"
+# rand_branch_name=$(date +%s | sha256sum | base64 | head -c 32)
+# target_branch_name="main"
 
 # 시작 시간 기록 (초와 나노초를 분리하여 기록)
-start_time_sec=$(date +%s)
-start_time_nsec=$(date +%N)
+# start_time_sec=$(date +%s)
+# start_time_nsec=$(date +%N)
 
-create_test_branch "$rand_branch_name"
+
+
+# while true; do
+#     pr_info=$(fetch_pr_info "$rand_branch_name" "$target_branch_name")
+#     # 종료 시간 기록 (초와 나노초를 분리하여 기록)
+#     end_time_sec=$(date +%s)
+#     end_time_nsec=$(date +%N)
+
+#     # 경과 시간 계산 (밀리초 단위)
+#     elapsed_time=$(( (end_time_sec - start_time_sec) * 1000 + (end_time_nsec - start_time_nsec) / 1000000 ))
+#     echo "======================================"
+#     echo "After $elapsed_time ms from start"
+#     echo "======================================"
+#     if [[ -n $pr_info ]]; then
+#         echo "PR is created: $pr_info"
+#         break
+#     fi
+#     sleep 0.1
+# done
+
+# delete_branch "$rand_branch_name"
+
+
+
+b1=$(uuidgen)
+b2=$(uuidgen)
+create_base_branch "$b1"
+create_test_branch "$b2"
 create_pr "$rand_branch_name" "$target_branch_name"
 
-while true; do
-    pr_info=$(fetch_pr_info "$rand_branch_name" "$target_branch_name")
-    # 종료 시간 기록 (초와 나노초를 분리하여 기록)
-    end_time_sec=$(date +%s)
-    end_time_nsec=$(date +%N)
-
-    # 경과 시간 계산 (밀리초 단위)
-    elapsed_time=$(( (end_time_sec - start_time_sec) * 1000 + (end_time_nsec - start_time_nsec) / 1000000 ))
-    echo "======================================"
-    echo "After $elapsed_time ms from start"
-    echo "======================================"
-    if [[ -n $pr_info ]]; then
-        echo "PR is created: $pr_info"
-        break
-    fi
-    sleep 0.1
-done
-
-delete_branch "$rand_branch_name"
-
-
-
+r=$(gh pr list --json url --jq '.[0] | .url')
