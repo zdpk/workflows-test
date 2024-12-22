@@ -5,6 +5,11 @@ create_base_branch() {
     git add .
     git commit -m .
     git push origin "$branch_name"
+
+    echo =======================
+    echo base branch diff
+    echo $(git diff HEAD^ HEAD)
+    echo =======================
 }
 
 create_head_branch() {
@@ -16,6 +21,10 @@ create_head_branch() {
     git add .
     git commit -m "test commit"
     git push origin "$branch_name"
+    echo =======================
+    echo head branch diff
+    echo $(git diff HEAD^ HEAD)
+    echo =======================
 }
 
 # create pr and calc delay when pr is created
