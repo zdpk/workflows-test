@@ -93,11 +93,11 @@ create_pr "$b1" "$b2"
 
 r=$(fetch_pr_info "$b1" "$b2")
 echo "r=$r"
-echo $(gh pr list --head "origin/$b1" --base "origin/$b2" --json url,number)
+echo $(gh pr list --head "$b1" --base "$b2" --json url,number)
 
 r=$(gh pr list \
-    --head "origin/$b1" \
-    --base "origin/$b2" \
+    --head "$b1" \
+    --base "$b2" \
     --json url,number \
     --jq '.[0]')
 
