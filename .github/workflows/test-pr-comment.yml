@@ -24,16 +24,23 @@ jobs:
   create-pr:
     needs: create-branches
     uses: zdpk/workflows/.github/workflows/create-pr.yml@main
-
-
-  create-pr-comment:
-    needs: create-branches
     secrets: 
       GH_TOKEN: ${{ github.token }}
-    uses: zdpk/workflows/.github/workflows/create-pr-comment.yml@main
     with:
       base_branch: test-base-branch
       head_branch: test-head-branch
       title: "test comment"
       description: "test comment body"
       repository: ${{ github.repository }}
+
+
+  create-pr-comment:
+    needs: create-pr
+    secrets: 
+      GH_TOKEN: ${{ github.token }}
+    uses: zdpk/workflows/.github/workflows/create-pr-comment.yml@main
+    with:
+      title: "test comment"
+      description: "test comment body"
+      repository: ${{ github.repository }}
+      pr_number: ${{ needs.create-pr.outputs.pr_number }}
