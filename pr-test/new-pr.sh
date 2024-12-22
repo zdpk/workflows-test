@@ -87,7 +87,7 @@ b1=$(uuidgen)
 b2=$(uuidgen)
 create_base_branch "$b1"
 create_test_branch "$b2"
-create_pr "$rand_branch_name" "$target_branch_name"
+create_pr "$b1" "$b2"
 
 r=$(gh pr list \
     --head "$b1" \
