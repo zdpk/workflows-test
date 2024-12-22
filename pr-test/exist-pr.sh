@@ -19,6 +19,10 @@ else
     git push origin "$rand_branch_name"
 fi
 
-res=$(gh pr list --base "$rand_branch_name1" --head "$rand_branch_name2")
+res=$(gh pr list \
+    --base "$rand_branch_name1" \
+    --head "$rand_branch_name2" \
+    --json number,url \
+)
 
 echo "res=$res"
