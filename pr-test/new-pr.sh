@@ -15,11 +15,13 @@ create_pr() {
     
     local now=$(date +"%Y-%m-%d %H:%M:%S.%3N")
 
-    gh pr create \
+    result=$(gh pr create \
         --head "$HEAD_BRANCH" \
         --base "$BASE_BRANCH" \
         --title "TEST PR $now" \
-        --body "TEST PR $now"
+        --body "TEST PR $now")
+
+    echo "result=$result"
 }
 
 fetch_pr_info() {
