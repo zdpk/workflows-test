@@ -112,8 +112,8 @@ r=$(gh pr list \
     --jq '.[0]')
 
 r2=$(gh pr list \
-    --head "" \
-    --base "" \
+    --head "dd" \
+    --base "ddd" \
     --json url,number \
     --jq '.[0]')
 
