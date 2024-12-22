@@ -97,7 +97,7 @@ r=$(gh pr list \
 
 echo "$r"
 
-pr_number=$(jq -r '.number' <<< $r)
+pr_number=($(jq -r '.number') <<< $r)
 pr_url=$(jq -r '.url' <<< $r)
 
 echo "pr_number=$pr_number"
