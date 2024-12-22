@@ -130,16 +130,20 @@ pr_url=$(jq -r '.url' <<< "$r")
 echo "pr_number=$pr_number"
 echo "pr_url=$pr_url"
 
-body=$(cat <<EOF
-TEST
-This is a test PR.
+# body=$(cat <<EOF
+# TEST
+# This is a test PR.
 
-Details:
-- This PR is created for testing purposes.
-- Please review and approve.
+# Details:
+# - This PR is created for testing purposes.
+# - Please review and approve.
 
-EOF
-)
+# EOF
+# )
+
+body= |
+    avbdeviced
+    abc
 
 
 resp=$(gh pr comment "$pr_number" --body "$body")
