@@ -141,9 +141,11 @@ echo "pr_url=$pr_url"
 # EOF
 # )
 
-body= |
+body='
     avbdeviced
-    abc
+- test
+'
+    
 
 
 resp=$(gh pr comment "$pr_number" --body "$body")
