@@ -52,7 +52,7 @@ jobs:
       repository: ${{ github.repository }}
       pr_number: ${{ needs.create-pr.outputs.pr_number }}
       body: |
-        test
+        # test
         - Result: success
         - Result: success
 
