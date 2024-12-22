@@ -1,5 +1,9 @@
 create_test_branch() {
     local branch_name=$1
+    if git rev-parse --verify "$branch_name" >/dev/null 2>&1; then
+        echo "Branch $branch_name already exists."
+        return
+    fi
     # create branch
     git switch -c "$branch_name"
     echo test > testfile
