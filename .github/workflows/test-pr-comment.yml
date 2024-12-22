@@ -60,6 +60,6 @@ jobs:
     steps:
       - name: Debug info
         run: |
-          echo "needs.create-pr.outputs.pr_number: ${{ needs.create-pr.outputs.pr_number }}"
-          echo "needs.create-pr.outputs.result: ${{ needs.create-pr.outputs.result }}"
-          echo "needs.create-pr.outputs.a: ${{ needs.create-pr.outputs.a }}"
+          echo "pr_number: ${{ needs.create-pr.outputs.pr_number }}"
+          echo "result: ${{ needs.create-pr.outputs.result }}"
+          echo "pr_url: ${{ needs.create-pr.outputs.pr_url }}"
