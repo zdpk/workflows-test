@@ -32,8 +32,8 @@ jobs:
       GH_TOKEN: ${{ github.token }}
     uses: zdpk/workflows/.github/workflows/create-pr-comment.yml@main
     with:
-      base-branch: test-base-branch
-      head-branch: test-head-branch
+      base_branch: test-base-branch
+      head_branch: test-head-branch
       title: "test comment"
       description: "test comment body"
       repository: ${{ github.repository }}
