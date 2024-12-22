@@ -141,10 +141,10 @@ echo "pr_url=$pr_url"
 # EOF
 # )
 
-body='
+body=<<-EOF
     avbdeviced
 - test
-'
+EOF
     
 
 
