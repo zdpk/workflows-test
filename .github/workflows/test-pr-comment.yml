@@ -52,3 +52,11 @@ jobs:
       repository: ${{ github.repository }}
       pr_number: ${{ needs.create-pr.outputs.pr_number }}
       body: "test comment body"
+
+  debug:
+    needs: [create-pr, create-pr-comment]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Debug info
+        run: |
+          echo "needs.create-pr.outputs.pr_number: ${{ needs.create-pr.outputs.pr_number }}"
