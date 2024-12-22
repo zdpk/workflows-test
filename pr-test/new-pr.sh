@@ -90,3 +90,5 @@ create_test_branch "$b2"
 create_pr "$rand_branch_name" "$target_branch_name"
 
 r=$(gh pr list --json url --jq '.[0] | .url')
+
+echo "$r"
