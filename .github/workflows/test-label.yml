@@ -9,10 +9,10 @@ jobs:
   test-label:
     runs-on: ubuntu-latest
     steps:
-      - name: Test Extract Label
+      - name: Extract Labels
         id: extract
         run: |
-          echo "labels: ${{ github.event.pull_request }}"
+          echo "labels=$(jq -r '.pull_request.labels | map(.name) | join(",")' <<< "${{ toJson(github.event) }}")" >> $GITHUB_ENV
 
       - name: Print Label
-        run: echo "Label is ${{ steps.extract.outputs.label }}"
+        run: echo "Labels are ${{ env.labels }}"
