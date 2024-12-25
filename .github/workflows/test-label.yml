@@ -10,8 +10,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Test Extract Label
-        uses: actions-ecosystem/action-release-label@v1
         id: extract
+        run: |
+          labels=${{ toJson(github.event.pull_request.labels) }}
+          echo "labels: $labels"
 
       - name: Print Label
         run: echo "Label is ${{ steps.extract.outputs.label }}"
