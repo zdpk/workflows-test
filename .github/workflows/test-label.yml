@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Test Extract Label
-        uses: actions-ecosystem/action-extract-label@v1
+        uses: actions-ecosystem/action-release-label@v1
         id: extract
 
       - name: Print Label
