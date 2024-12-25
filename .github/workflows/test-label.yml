@@ -1,0 +1,16 @@
+name: Test Label
+
+on: 
+  pull_request: 
+    types: [opened, reopened, synchronize]
+    
+jobs:
+  test-label:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Test Extract Label
+        uses: actions-ecosystem/action-extract-label@v1
+        id: extract
+
+      - name: Print Label
+        run: echo "Label is ${{ steps.extract.outputs.label }}"
