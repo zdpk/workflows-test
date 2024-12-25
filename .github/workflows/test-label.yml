@@ -12,7 +12,7 @@ jobs:
       - name: Test Extract Label
         id: extract
         run: |
-          labels=${{ toJson(github.event.pull_request.labels) }}
+          labels=${{ toJson(github.event.pull_request) }}
           echo "labels: $labels"
 
       - name: Print Label
