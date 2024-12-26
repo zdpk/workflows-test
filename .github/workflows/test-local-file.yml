@@ -1,0 +1,20 @@
+name: Test Local file shared in diff steps
+
+on:
+  workflow_dispatch:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: save local file
+        run: |
+          cd tmp
+          echo "Hello World" > "${{ github.workspace }}/shared/test.txt"
+
+      - name: cat local file
+        run: |
+          echo "cat file"
+          cat "${{ github.workspace }}/shared/test.txt"
+
