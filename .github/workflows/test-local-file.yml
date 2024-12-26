@@ -12,6 +12,7 @@ jobs:
         run: |
           mkdir tmp
           cd tmp
+          mkdir -p "${{ github.workspace }}/shared"
           echo "Hello World" > "${{ github.workspace }}/shared/test.txt"
 
       - name: cat local file
