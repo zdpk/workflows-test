@@ -10,6 +10,7 @@ jobs:
     steps:
       - name: save local file
         run: |
+          mkdir tmp
           cd tmp
           echo "Hello World" > "${{ github.workspace }}/shared/test.txt"
 
